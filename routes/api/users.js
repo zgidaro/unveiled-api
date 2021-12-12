@@ -115,7 +115,7 @@ router.get('/wallets', isAuthenticated, async (req, res, next) => {
     res.json(user.wallets);
 });
 
-router.get('/wallets/:username', isAuthenticated, async (req, res, next) => {
+router.get('/wallets/:username', async (req, res, next) => {
     let user = await User
         .findOne({ username: { $regex: new RegExp("^" + req.params.username + "$", "i") } })
         .select('_id username wallets')
