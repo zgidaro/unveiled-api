@@ -153,4 +153,21 @@ router.put('/wallets', isAuthenticated, async (req, res, next) => {
     res.json();
 });
 
+router.put('/wallets/:address', isAuthenticated, async (req, res, next) => {
+    let user = await User.findOne({ _id: req.decoded.user_id });
+    if (!user) {
+        res.statusCode = 400;
+        res.json();
+        return;
+    }
+
+    const walletAddress = req.params.address;
+    if (user.wallets) {
+        user.wallets = user.wallets.filter((w) => w.address !== walletAddress);
+        user.save();
+    }
+
+    res.json();
+});
+
 module.exports = router;
