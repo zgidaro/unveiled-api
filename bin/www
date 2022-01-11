@@ -88,5 +88,3 @@ function onListening() {
 }
 
 module.exports = server;
-
-require('../routes/helpers/messaging');
